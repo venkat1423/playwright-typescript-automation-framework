@@ -1,0 +1,134 @@
+/* import {test, expect} from '@playwright/test';
+import {LoginPage} from '../pages/LoginPage';
+import {InventoryPage} from '../pages/InventoryPage';
+import {CartPage} from '../pages/CartPage';
+import {CheckoutPage} from '../pages/CheckoutPage';
+import users from '../test-data/users.json';
+import checkoutData from '../test-data/checkoutData.json';
+import {Constants} from '../utils/Constants';
+
+test('Verify user can complete checkout process', async ({page}) => {
+
+    const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page);
+    const cartPage = new CartPage(page);
+    const checkoutPage = new CheckoutPage(page);
+
+    // open website
+    await loginPage.navigateTo('/');
+
+    // login
+    await loginPage.login(users.validUser.username, users.validUser.password);
+
+    // verify that the user is on the Inventory page
+    await expect(inventoryPage.productsTitle).toHaveText(Constants.INVENTORY_TITLE);
+
+    // add product to the cart
+    await inventoryPage.addProductToCart(Constants.PRODUCT_NAME);
+
+    // verify cart badge count
+    await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+
+    // open the cart
+    await inventoryPage.openCart();
+
+    // verify that the user is on the Cart page
+    await expect(cartPage.cartTitle).toHaveText(Constants.CART_TITLE);
+
+    // verify that the backpack is in the cart
+    await expect(cartPage.productName).toHaveText(Constants.PRODUCT_NAME);
+    await expect(cartPage.productPrice).toHaveText(Constants.PRODUCT_PRICE);
+
+    // click checkout
+    await cartPage.clickCheckout();
+
+    // verify that the user is on the Checkout page
+    await expect(checkoutPage.checkoutTitle).toHaveText(Constants.CHECKOUT_TITLE);
+
+    // enter checkout information
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // click continue
+    await checkoutPage.clickContinue();
+
+    // verify that the user is on the Checkout Overview page
+    await expect(checkoutPage.overviewTitle).toHaveText(Constants.CHECKOUT_OVERVIEW_TITLE);
+
+    // click finish
+    await checkoutPage.clickFinish();
+
+    // verify that the user is on the Checkout Complete page
+    await expect(checkoutPage.completeHeader).toHaveText(Constants.SUCCESS_HEADER);
+    await expect(checkoutPage.completeMessage).toContainText(Constants.SUCCESS_MESSAGE);
+
+    // click back home
+    await checkoutPage.clickBackHome();
+
+    await expect(inventoryPage.productsTitle).toHaveText(Constants.INVENTORY_TITLE);
+}) */
+
+import {test, expect} from '../fixtures/baseFixtures';
+import checkoutData from '../test-data/checkoutData.json';
+import {Constants} from '../utils/Constants';
+
+test.describe('Checkout Module', ()=>{
+
+test('Verify user can complete checkout process @smoke @regression', async ({inventoryPage, cartPage, checkoutPage}) => {
+
+    // verify that the user is on the Inventory page
+    await expect(inventoryPage.productsTitle).toHaveText(Constants.INVENTORY_TITLE);
+
+    // add product to the cart
+    await inventoryPage.addProductToCart(Constants.PRODUCT_NAME);
+
+    // verify cart badge count
+    await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+
+    // open the cart
+    await inventoryPage.openCart();
+
+    // verify that the user is on the Cart page
+    await expect(cartPage.cartTitle).toHaveText(Constants.CART_TITLE);
+
+    // verify that the product is in the cart
+    await expect(cartPage.productName).toHaveText(Constants.PRODUCT_NAME);
+    await expect(cartPage.productPrice).toHaveText(Constants.PRODUCT_PRICE);
+
+    // click checkout
+    await cartPage.clickCheckout();
+
+    // verify that the user is on the Checkout page
+    await expect(checkoutPage.checkoutTitle).toHaveText(Constants.CHECKOUT_TITLE);
+
+    // enter checkout information
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // click continue
+    await checkoutPage.clickContinue();
+
+    // verify that the user is on the Checkout Overview page
+    await expect(checkoutPage.overviewTitle).toHaveText(Constants.CHECKOUT_OVERVIEW_TITLE);
+
+    // click finish
+    await checkoutPage.clickFinish();
+
+    // verify that the user is on the Checkout Complete page
+    await expect(checkoutPage.completeHeader).toHaveText(Constants.SUCCESS_HEADER);
+    await expect(checkoutPage.completeMessage).toContainText(Constants.SUCCESS_MESSAGE);
+
+    // click back home
+    await checkoutPage.clickBackHome();
+
+    // verify that the user is on the Inventory page
+    await expect(inventoryPage.productsTitle).toHaveText(Constants.INVENTORY_TITLE);
+});
+
+});
