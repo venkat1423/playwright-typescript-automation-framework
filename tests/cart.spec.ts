@@ -97,4 +97,27 @@ test('Verify multiple products are displayed in the cart @regression', async({in
     }
 });
 
+test('Verify user can remove product from the cart @regression', async({inventoryPage, cartPage})=>{
+    // Verify that inventory page has loaded successfully
+    await inventoryPage.verifyInventoryPage();
+
+    // Add a product to the cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Navigate to the cart page
+    await inventoryPage.openCart();
+
+    // Verify that cart is opened
+    await cartPage.verifyCartPage();
+
+    // Verify that product exists before removing it
+    await cartPage.verifyProductInCart(Constants.BACKPACK);
+
+    // Remove the product
+    await cartPage.removeProductFromCart(Constants.BACKPACK);
+
+    // Verify that the product is no longer displayed
+    await cartPage.verifyProductNotInCart(Constants.BACKPACK);
+});
+
 });

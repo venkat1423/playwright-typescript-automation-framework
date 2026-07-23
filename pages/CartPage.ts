@@ -40,10 +40,19 @@ export class CartPage extends BasePage {
         await expect(product).toBeVisible();
     }
 
+    // Verify that a product is not displayed on the cart
+    async verifyProductNotInCart(productName: string){
+        const product = this.page.locator('.cart_item').filter({
+            hasText: productName
+        });
+
+        await expect(product).toHaveCount(0);
+    }
+
     // Remove product
 
     async removeProductFromCart(productName: string){
-        const product = this.page.locator('.inventory_item').filter({
+        const product = this.page.locator('.cart_item').filter({
             hasText : productName
         });
         await product.getByRole('button', {name: 'Remove'}).click();
