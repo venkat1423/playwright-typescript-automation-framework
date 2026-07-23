@@ -1,5 +1,6 @@
-import {Page, Locator} from '@playwright/test';
+import {Page, Locator, expect} from '@playwright/test';
 import {BasePage} from './BasePage';
+import { Constants } from '../utils/Constants';
 
 export class CartPage extends BasePage {
 
@@ -22,6 +23,21 @@ export class CartPage extends BasePage {
         this.removeButton = page.locator('#remove-sauce-labs-backpack');
         this.continueShoppingButton = page.locator('#continue-shopping');
         this.checkoutButton = page.locator('#checkout');
+    }
+
+    // Verify that user is on the cart page by checking page title
+
+    async verifyCartPage(){
+        await expect(this.cartTitle).toHaveText(Constants.CART_TITLE);
+    }
+
+    // Verify products in cart
+
+    async verifyProductInCart(productName:string){
+        const product = this.page.locator('.cart_item').filter({
+            hasText: productName
+        });
+        await expect(product).toBeVisible();
     }
 
     // Remove product

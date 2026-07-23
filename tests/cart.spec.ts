@@ -66,4 +66,35 @@ test('Verify user can navigate to cart after adding a backpack to the cart @smok
 
 });
 
+test('Verify multiple products are displayed in the cart @regression', async({inventoryPage, cartPage})=>{
+
+    // Verify that Inventory page loaded successfully
+    await inventoryPage.verifyInventoryPage();
+
+    // Create a list of products to add to the cart
+    const products = [
+        Constants.BACKPACK,
+        Constants.BIKE_LIGHT,
+        Constants.BOLT_TSHIRT
+    ];
+
+    // Add each product to the cart
+    // Using a loops avoids duplicate code and makes the test scalable
+
+    for(const product of products){
+        await inventoryPage.addProductToCart(product);
+    }
+
+    // Navigate to cart page
+    await inventoryPage.openCart();
+
+    // Verify that cart page loaded successfully
+    await cartPage.verifyCartPage();
+
+    // Verify each selected product is displayed on the cart page
+    for(const product of products){
+        await cartPage.verifyProductInCart(product);
+    }
+});
+
 });
