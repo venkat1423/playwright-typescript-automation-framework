@@ -120,4 +120,25 @@ test('Verify user can remove product from the cart @regression', async({inventor
     await cartPage.verifyProductNotInCart(Constants.BACKPACK);
 });
 
+test('Verify user can continue shopping from cart @smoke @regression', async({inventoryPage, cartPage})=>{
+    
+    // Verify user successfully navigated to inventory page
+    await inventoryPage.verifyInventoryPage();
+
+    // Add a product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Navigate to cart page
+    await inventoryPage.openCart();
+
+    // verify that cart is opened
+    await cartPage.verifyCartPage();
+
+    // Verify continue shopping
+    await cartPage.continueShopping();
+
+    // Varify user is navigated back to inventory page
+    await inventoryPage.verifyInventoryPage();
+})
+
 });
