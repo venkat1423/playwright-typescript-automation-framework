@@ -1,5 +1,6 @@
-import {Page, Locator} from '@playwright/test';
+import {Page, Locator, expect} from '@playwright/test';
 import {BasePage} from './BasePage';
+import { Constants } from '../utils/Constants';
 
 export class CheckoutPage extends BasePage{
 
@@ -44,6 +45,11 @@ export class CheckoutPage extends BasePage{
     
     }
 
+        // Verify Checkout information page
+        async verifyCheckoutInformationPage(){
+            await expect(this.checkoutTitle).toHaveText(Constants.CHECKOUT_INFORMATION_TITLE);
+        }  
+    
         // Additional methods for interacting with the checkout process can be added here
 
         async enterCheckoutInformation(firstName: string, lastName: string, postalCode: string) {

@@ -29,7 +29,7 @@ export class Constants {
     static readonly CART_TITLE: string = 'Your Cart';
 
     // Checkout
-    static readonly CHECKOUT_TITLE: string = 'Checkout: Your Information';
+    static readonly CHECKOUT_INFORMATION_TITLE: string = 'Checkout: Your Information';
     static readonly CHECKOUT_OVERVIEW_TITLE: string = 'Checkout: Overview';
     static readonly CHECKOUT_COMPLETE_TITLE: string = 'Checkout: Complete!';
 

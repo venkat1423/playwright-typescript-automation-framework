@@ -139,6 +139,27 @@ test('Verify user can continue shopping from cart @smoke @regression', async({in
 
     // Varify user is navigated back to inventory page
     await inventoryPage.verifyInventoryPage();
-})
+});
+
+test('Verify user can proceed to checkout', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify that user is on the inventory page
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Navigate to cart
+    await inventoryPage.openCart();
+
+    // Verify that user is on the cart page
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify user is on checkout page
+    await checkoutPage.verifyCheckoutInformationPage();
+
+});
 
 });
