@@ -58,6 +58,18 @@ export class CheckoutPage extends BasePage{
             await this.postalCode.fill(postalCode);
         }
 
+        // Verify entered checkout information
+        async verifyCheckoutInformation(firstName: string, lastName: string, postalCode: string){
+            // Verify firstname value
+            await expect(this.firstName).toHaveValue(firstName);
+
+            // Verify lastname value
+            await expect(this.lastName).toHaveValue(lastName);
+
+            // Verify postalcode value
+            await expect(this.postalCode).toHaveValue(postalCode);
+        }
+
         async clickContinue() {
             await this.continueButton.click();
         }

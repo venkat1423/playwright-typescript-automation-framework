@@ -102,7 +102,7 @@ test('Verify user can complete checkout process @smoke @regression', async ({inv
     await cartPage.clickCheckout();
 
     // verify that the user is on the Checkout page
-    await expect(checkoutPage.checkoutTitle).toHaveText(Constants.CHECKOUT_TITLE);
+    await expect(checkoutPage.checkoutTitle).toHaveText(Constants.CHECKOUT_INFORMATION_TITLE);
 
     // enter checkout information
     await checkoutPage.enterCheckoutInformation(
@@ -130,5 +130,41 @@ test('Verify user can complete checkout process @smoke @regression', async ({inv
     // verify that the user is on the Inventory page
     await expect(inventoryPage.productsTitle).toHaveText(Constants.INVENTORY_TITLE);
 });
+
+test('Verify user can enter valid checkout information @regression @smoke', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart page
+    await inventoryPage.openCart();
+
+    // Verify user is on the cart page
+    await cartPage.verifyCartPage();
+
+    // Click Checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page is displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter valid checkout information
+
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Verify entered checkout information
+
+    await checkoutPage.verifyCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    )
+})
 
 });
