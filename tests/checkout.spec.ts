@@ -223,7 +223,36 @@ test('Verify lastname is mandaotry', async({inventoryPage, cartPage, checkoutPag
 
     // Verify validation message
     await checkoutPage.verifyErrorMessage(Constants.LAST_NAME_REQUIRED);
-})
+});
+
+test('Verify postalcode is mandatory', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information page without postalcode
+    await checkoutPage.enterCheckoutInformation(checkoutData.validCheckout.firstName, checkoutData.validCheckout.lastName,'');
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // Verify checkout validation message
+    await checkoutPage.verifyErrorMessage(Constants.POSTAL_CODE_REQUIRED);
+});
 
 
 });
