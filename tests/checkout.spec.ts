@@ -194,6 +194,35 @@ test('Verify firstname is mandatory @regression', async({inventoryPage, cartPage
 
     // Verify validation message
     await checkoutPage.verifyErrorMessage(Constants.FIRST_NAME_REQUIRED);
+});
+
+test('Verify lastname is mandaotry', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open Cart
+    await inventoryPage.openCart();
+
+    // Verify cart page displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page is displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information without lastname
+    await checkoutPage.enterCheckoutInformation(checkoutData.validCheckout.firstName,'',checkoutData.validCheckout.postalCode);
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // Verify validation message
+    await checkoutPage.verifyErrorMessage(Constants.LAST_NAME_REQUIRED);
 })
 
 
