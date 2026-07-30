@@ -1,41 +1,42 @@
 # 🚀 Playwright TypeScript Automation Framework
 
-A scalable end-to-end automation framework built using **Playwright** and **TypeScript** following industry best practices such as **Page Object Model (POM)**, **Fixtures**, **Data-Driven Testing**, and **Storage State Authentication**.
+A scalable End-to-End Test Automation Framework built using **Playwright** and **TypeScript**, following industry best practices such as **Page Object Model (POM)**, **Fixtures**, **Data-Driven Testing**, **Storage State Authentication**, and **Reusable Page Objects**.
 
-This project is being built incrementally by implementing real-world e-commerce test scenarios using the SauceDemo application.
+This framework automates real-world e-commerce workflows using the **SauceDemo** application and is designed to demonstrate production-ready automation practices.
 
 ---
 
-## 📌 Tech Stack
+# 📌 Tech Stack
 
 - Playwright
 - TypeScript
 - Node.js
 - Git & GitHub
+- Visual Studio Code
 
 ---
 
-## ✨ Framework Features
+# ✨ Framework Features
 
 - ✅ Page Object Model (POM)
-- ✅ TypeScript Support
-- ✅ Reusable Page Classes
-- ✅ Base Page
+- ✅ Base Page Architecture
 - ✅ Playwright Fixtures
 - ✅ Storage State Authentication
 - ✅ Environment Variables (.env)
 - ✅ Data-Driven Testing
-- ✅ Reusable Helper Methods
+- ✅ Dynamic Locators
+- ✅ Reusable Page Methods
 - ✅ HTML Reports
 - ✅ Screenshot on Failure
 - ✅ Video Recording on Failure
 - ✅ Trace on Failure
+- ✅ Smoke & Regression Test Tags
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
-```
+```text
 SauceDemoProject
 │
 ├── fixtures/
@@ -47,13 +48,14 @@ SauceDemoProject
 ├── playwright.config.ts
 ├── package.json
 ├── tsconfig.json
+├── .env
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## ▶️ Installation
+# ▶️ Installation
 
 Clone the repository
 
@@ -75,7 +77,7 @@ npx playwright install
 
 ---
 
-## ▶️ Run Tests
+# ▶️ Execute Tests
 
 Run all tests
 
@@ -103,7 +105,9 @@ npx playwright test --grep "@regression"
 
 ---
 
-## 📊 View HTML Report
+# 📊 Reports
+
+Generate HTML Report
 
 ```bash
 npx playwright show-report
@@ -111,47 +115,70 @@ npx playwright show-report
 
 ---
 
-## 🧪 Test Scenarios Implemented
+# 🧪 Automated Test Scenarios
 
-### Login Module
+## Login Module
 
-- Valid Login
-- Invalid Username
-- Invalid Password
-- Locked User
-- Data-Driven Login Validation
-
-### Inventory Module
-
-- Verify Inventory Page
-- Verify Product Count
-- Verify Product Names
-- Add Single Product to Cart
-- Add Multiple Products to Cart
-- Remove Product from Inventory
-- Sort Products (A → Z)
-- Sort Products (Z → A)
-- Sort Price (Low → High)
-- Sort Price (High → Low)
+- ✅ Valid Login
+- ✅ Invalid Username
+- ✅ Invalid Password
+- ✅ Locked User
+- ✅ Data-Driven Login Validation
 
 ---
 
-## 🚧 Upcoming Modules
+## Inventory Module
 
-- Cart
-- Checkout
-- Checkout Overview
-- Order Completion
+- ✅ Verify Inventory Page
+- ✅ Verify Product Count
+- ✅ Verify Product Names
+- ✅ Add Single Product
+- ✅ Add Multiple Products
+- ✅ Remove Product
+- ✅ Sort Products (A → Z)
+- ✅ Sort Products (Z → A)
+- ✅ Sort Price (Low → High)
+- ✅ Sort Price (High → Low)
+
+---
+
+## Cart Module
+
+- ✅ Verify Product is Displayed in Cart
+- ✅ Verify Multiple Products in Cart
+- ✅ Verify Remove Product from Cart
+- ✅ Verify Continue Shopping
+- ✅ Verify Checkout Navigation
+
+---
+
+## Checkout Module
+
+- ✅ Verify Valid Checkout Information
+- ✅ Verify First Name Validation
+- 🚧 Verify Last Name Validation
+- 🚧 Verify Postal Code Validation
+- 🚧 Verify Cancel Navigation
+- 🚧 Verify Checkout Overview
+- 🚧 Verify Order Completion
+
+---
+
+# 🚀 Upcoming Enhancements
+
+- GitHub Actions (CI/CD)
 - API Testing
-- CI/CD using GitHub Actions
 - Docker Integration
+- Cross Browser Execution
+- Retry Strategy
+- Allure Reports
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Venkatesh**
 
 QA Automation Engineer
 
-Built with ❤️ using Playwright & TypeScript.
+Built with ❤️ using Playwright, TypeScript & Automation Best Practices.
