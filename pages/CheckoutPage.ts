@@ -11,6 +11,7 @@ export class CheckoutPage extends BasePage{
     readonly postalCode : Locator;
     readonly continueButton : Locator;
     readonly cancelButton : Locator;
+    readonly errorMessage : Locator;
 
     // Checkout Overview Page Locators
     readonly overviewTitle : Locator;
@@ -33,6 +34,7 @@ export class CheckoutPage extends BasePage{
         this.postalCode = page.locator('#postal-code');
         this.continueButton = page.locator('#continue');
         this.cancelButton = page.locator('#cancel');
+        this.errorMessage = page.locator('[data-test = "error"]');
 
         // Checkout Overview Page Locators
         this.overviewTitle = page.locator('.title');
@@ -68,6 +70,11 @@ export class CheckoutPage extends BasePage{
 
             // Verify postalcode value
             await expect(this.postalCode).toHaveValue(postalCode);
+        }
+
+        // Verify checkout validation error message
+        async verifyErrorMessage(expectedMessage: string){
+            await expect(this.errorMessage).toHaveText(expectedMessage);
         }
 
         async clickContinue() {

@@ -32,6 +32,7 @@ export class Constants {
     static readonly CHECKOUT_INFORMATION_TITLE: string = 'Checkout: Your Information';
     static readonly CHECKOUT_OVERVIEW_TITLE: string = 'Checkout: Overview';
     static readonly CHECKOUT_COMPLETE_TITLE: string = 'Checkout: Complete!';
+    static readonly FIRST_NAME_REQUIRED: string = 'Error: First Name is required';
 
     // Products
     static readonly PRODUCT_NAME: string = 'Sauce Labs Backpack';

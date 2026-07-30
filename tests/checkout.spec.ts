@@ -165,6 +165,36 @@ test('Verify user can enter valid checkout information @regression @smoke', asyn
         checkoutData.validCheckout.lastName,
         checkoutData.validCheckout.postalCode
     )
+});
+
+test('Verify firstname is mandatory @regression', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart page
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter check information without firstname
+    await checkoutPage.enterCheckoutInformation('', checkoutData.validCheckout.lastName, checkoutData.validCheckout.postalCode);
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // Verify validation message
+    await checkoutPage.verifyErrorMessage(Constants.FIRST_NAME_REQUIRED);
 })
+
 
 });
