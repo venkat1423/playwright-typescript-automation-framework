@@ -254,5 +254,30 @@ test('Verify postalcode is mandatory', async({inventoryPage, cartPage, checkoutP
     await checkoutPage.verifyErrorMessage(Constants.POSTAL_CODE_REQUIRED);
 });
 
+test('Verify cancel button navigates back to cart @regression', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart page displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Click cancel
+    await checkoutPage.clickCancel();
+
+    // Verify cancel button navigates back to cart page
+    await cartPage.verifyCartPage();
+});
 
 });

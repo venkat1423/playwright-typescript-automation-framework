@@ -89,4 +89,9 @@ export class CheckoutPage extends BasePage{
             await this.backHomeButton.click();
         }
 
+        // Click Cancel button
+        async clickCancel(){
+            await this.cancelButton.click();
+        }
+
 }
