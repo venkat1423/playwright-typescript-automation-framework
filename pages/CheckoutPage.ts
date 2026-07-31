@@ -51,6 +51,11 @@ export class CheckoutPage extends BasePage{
         async verifyCheckoutInformationPage(){
             await expect(this.checkoutTitle).toHaveText(Constants.CHECKOUT_INFORMATION_TITLE);
         }  
+
+        // Verify Checkout Overview page
+        async verifyCheckoutOverviewPage(){
+            await expect(this.overviewTitle).toHaveText(Constants.CHECKOUT_OVERVIEW_TITLE);
+        }
     
         // Additional methods for interacting with the checkout process can be added here
 
