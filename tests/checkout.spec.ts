@@ -309,4 +309,40 @@ test('Verify successful navigation to checkout overview @regression', async({inv
     await checkoutPage.verifyCheckoutOverviewPage();
 });
 
+test('verify product details on checkout overview page @regression', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page is displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // Verify checkout overview page displayed
+    await checkoutPage.verifyCheckoutOverviewPage();
+
+    // Verify product details
+    await checkoutPage.verifyProductOnOverview(Constants.PRODUCT_NAME, Constants.PRODUCT_PRICE)
+});
+
 });

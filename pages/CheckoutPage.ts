@@ -16,6 +16,8 @@ export class CheckoutPage extends BasePage{
     // Checkout Overview Page Locators
     readonly overviewTitle : Locator;
     readonly finishButton : Locator;
+    readonly overviewProductName : Locator;
+    readonly overviewProductPrice : Locator;
 
     // Checkout Complete Page Locators
     readonly completeHeader : Locator;
@@ -39,6 +41,8 @@ export class CheckoutPage extends BasePage{
         // Checkout Overview Page Locators
         this.overviewTitle = page.locator('.title');
         this.finishButton = page.locator('#finish');
+        this.overviewProductName = page.locator('.inventory_item_name');
+        this.overviewProductPrice = page.locator('.inventory_item_price');
 
         // Checkout Complete Page Locators
         this.completeHeader = page.locator('.complete-header');
@@ -80,6 +84,15 @@ export class CheckoutPage extends BasePage{
         // Verify checkout validation error message
         async verifyErrorMessage(expectedMessage: string){
             await expect(this.errorMessage).toHaveText(expectedMessage);
+        }
+
+        // Verify selected product details on checkout overview page
+        async verifyProductOnOverview(productName: string, productPrice: string){
+            // Verify product name
+            await expect(this.overviewProductName).toHaveText(productName);
+
+            // Verify product price
+            await expect(this.overviewProductPrice).toHaveText(productPrice);
         }
 
         async clickContinue() {
