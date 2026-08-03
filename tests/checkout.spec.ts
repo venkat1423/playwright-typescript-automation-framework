@@ -345,4 +345,40 @@ test('verify product details on checkout overview page @regression', async({inve
     await checkoutPage.verifyProductOnOverview(Constants.PRODUCT_NAME, Constants.PRODUCT_PRICE)
 });
 
+test('Verify payment information on checkout overview @regression', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify that the inventory page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart page displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information page
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // Verify checkout overview page
+    await checkoutPage.verifyCheckoutOverviewPage();
+
+    // Verify payment information
+    await checkoutPage.verifyPaymentInformation(Constants.PAYMENT_INFORMATION_VALUE);
+})
+
 });
