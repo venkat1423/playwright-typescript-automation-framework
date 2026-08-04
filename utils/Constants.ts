@@ -36,6 +36,7 @@ export class Constants {
     static readonly LAST_NAME_REQUIRED: string = 'Error: Last Name is required';
     static readonly POSTAL_CODE_REQUIRED: string = 'Error: Postal Code is required';
     static readonly PAYMENT_INFORMATION_VALUE: string = 'SauceCard #31337';
+    static readonly SHIPPING_INFORMATION_VALUE: string = 'Free Pony Express Delivery!';
 
     // Products
     static readonly PRODUCT_NAME: string = 'Sauce Labs Backpack';

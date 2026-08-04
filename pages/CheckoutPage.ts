@@ -19,6 +19,7 @@ export class CheckoutPage extends BasePage{
     readonly overviewProductName : Locator;
     readonly overviewProductPrice : Locator;
     readonly paymentInformationValue : Locator;
+    readonly shippingInformationValue : Locator;
 
     // Checkout Complete Page Locators
     readonly completeHeader : Locator;
@@ -45,6 +46,7 @@ export class CheckoutPage extends BasePage{
         this.overviewProductName = page.locator('.inventory_item_name');
         this.overviewProductPrice = page.locator('.inventory_item_price');
         this.paymentInformationValue = page.locator('[data-test="payment-info-value"]');
+        this.shippingInformationValue = page.locator('[data-test="shipping-info-value"]');
 
         // Checkout Complete Page Locators
         this.completeHeader = page.locator('.complete-header');
@@ -99,6 +101,10 @@ export class CheckoutPage extends BasePage{
 
         async verifyPaymentInformation(expectedPayment:string){
             await expect(this.paymentInformationValue).toHaveText(expectedPayment);
+        }
+
+        async verifyShippingInformation(expectShipping: string){
+            await expect(this.shippingInformationValue).toHaveText(expectShipping);
         }
 
         async clickContinue() {

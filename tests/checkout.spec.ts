@@ -71,6 +71,7 @@ test('Verify user can complete checkout process', async ({page}) => {
     await expect(inventoryPage.productsTitle).toHaveText(Constants.INVENTORY_TITLE);
 }) */
 
+import { checkPrime } from 'node:crypto';
 import {test, expect} from '../fixtures/baseFixtures';
 import checkoutData from '../test-data/checkoutData.json';
 import {Constants} from '../utils/Constants';
@@ -379,6 +380,42 @@ test('Verify payment information on checkout overview @regression', async({inven
 
     // Verify payment information
     await checkoutPage.verifyPaymentInformation(Constants.PAYMENT_INFORMATION_VALUE);
-})
+});
+
+test('Verify shipping information on checkout overview', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify Invenotry page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open Cart
+    await inventoryPage.openCart();
+
+    // Verify cart is displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Click Continue
+    await checkoutPage.clickContinue();
+
+    // Verify checkout overview page displayed
+    await checkoutPage.verifyCheckoutOverviewPage();
+
+    // Verify shipping information
+    await checkoutPage.verifyShippingInformation(Constants.SHIPPING_INFORMATION_VALUE);
+});
 
 });
