@@ -418,4 +418,43 @@ test('Verify shipping information on checkout overview', async({inventoryPage, c
     await checkoutPage.verifyShippingInformation(Constants.SHIPPING_INFORMATION_VALUE);
 });
 
+test('Verify item total on shipping overview page', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page is displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart page displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // verify checkout information page displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // Verify checkout overview page displayed
+    await checkoutPage.verifyCheckoutOverviewPage();
+
+    // Get item total text
+    const itemTotal = await checkoutPage.getItemTotal();
+
+    // Verify item total
+    expect(itemTotal).toBe(`Item total: ${Constants.PRODUCT_PRICE}`);
+});
+
 });
