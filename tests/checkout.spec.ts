@@ -496,4 +496,58 @@ test('Verify tax amount on checkout overview @regression', async({inventoryPage,
     expect(tax).toBe(`Tax: ${Constants.TAX}`);
 });
 
+test('Verify Total amount calculation on checkout overview @regression', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart page
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information page
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // verify checkout overview page
+    await checkoutPage.verifyCheckoutOverviewPage();
+
+    // Get item total text
+    const itemTotal = await checkoutPage.getItemTotal();
+
+    // Get tax text
+    const tax = await checkoutPage.getTax();
+
+    // Get total text
+    const total = await checkoutPage.getTotal();
+
+    // Extract numerical values
+    const itemTotalAmount = parseFloat(itemTotal.replace('Item total: $', ''));
+    const taxAmount = parseFloat(tax.replace('Tax: $', ''));
+    const totalAmount = parseFloat(total.replace('Total: $', ''));
+
+    // Calculate expected total
+    const expectedTotal = itemTotalAmount + taxAmount;
+
+    // Verify calculated total matches displayed total
+    expect(totalAmount).toBe(expectedTotal);
+    
+})
+
 });
