@@ -21,6 +21,7 @@ export class CheckoutPage extends BasePage{
     readonly paymentInformationValue : Locator;
     readonly shippingInformationValue : Locator;
     readonly itemTotalValue : Locator;
+    readonly taxValue : Locator;
 
     // Checkout Complete Page Locators
     readonly completeHeader : Locator;
@@ -49,6 +50,7 @@ export class CheckoutPage extends BasePage{
         this.paymentInformationValue = page.locator('[data-test="payment-info-value"]');
         this.shippingInformationValue = page.locator('[data-test="shipping-info-value"]');
         this.itemTotalValue = page.locator('[data-test="subtotal-label"]');
+        this.taxValue = page.locator('[data-test="tax-label"]');
 
         // Checkout Complete Page Locators
         this.completeHeader = page.locator('.complete-header');
@@ -113,6 +115,12 @@ export class CheckoutPage extends BasePage{
         async getItemTotal() : Promise<string>{
             const itemTotal = await this.itemTotalValue.textContent();
             return itemTotal ?? '';
+        }
+
+        // Get tax text
+        async getTax() : Promise<string>{
+            const taxValue = await this.taxValue.textContent();
+            return taxValue ?? '';
         }
 
         async clickContinue() {

@@ -197,7 +197,7 @@ test('Verify firstname is mandatory @regression', async({inventoryPage, cartPage
     await checkoutPage.verifyErrorMessage(Constants.FIRST_NAME_REQUIRED);
 });
 
-test('Verify lastname is mandaotry', async({inventoryPage, cartPage, checkoutPage})=>{
+test('Verify lastname is mandaotry @regression', async({inventoryPage, cartPage, checkoutPage})=>{
     // Verify inventory page is displayed
     await inventoryPage.verifyInventoryPage();
 
@@ -226,7 +226,7 @@ test('Verify lastname is mandaotry', async({inventoryPage, cartPage, checkoutPag
     await checkoutPage.verifyErrorMessage(Constants.LAST_NAME_REQUIRED);
 });
 
-test('Verify postalcode is mandatory', async({inventoryPage, cartPage, checkoutPage})=>{
+test('Verify postalcode is mandatory @regression', async({inventoryPage, cartPage, checkoutPage})=>{
     // Verify inventory page displayed
     await inventoryPage.verifyInventoryPage();
 
@@ -382,7 +382,7 @@ test('Verify payment information on checkout overview @regression', async({inven
     await checkoutPage.verifyPaymentInformation(Constants.PAYMENT_INFORMATION_VALUE);
 });
 
-test('Verify shipping information on checkout overview', async({inventoryPage, cartPage, checkoutPage})=>{
+test('Verify shipping information on checkout overview @regression', async({inventoryPage, cartPage, checkoutPage})=>{
     // Verify Invenotry page is displayed
     await inventoryPage.verifyInventoryPage();
 
@@ -418,7 +418,7 @@ test('Verify shipping information on checkout overview', async({inventoryPage, c
     await checkoutPage.verifyShippingInformation(Constants.SHIPPING_INFORMATION_VALUE);
 });
 
-test('Verify item total on shipping overview page', async({inventoryPage, cartPage, checkoutPage})=>{
+test('Verify item total on shipping overview page @regression', async({inventoryPage, cartPage, checkoutPage})=>{
     // Verify inventory page is displayed
     await inventoryPage.verifyInventoryPage();
 
@@ -455,6 +455,45 @@ test('Verify item total on shipping overview page', async({inventoryPage, cartPa
 
     // Verify item total
     expect(itemTotal).toBe(`Item total: ${Constants.PRODUCT_PRICE}`);
+});
+
+test('Verify tax amount on checkout overview @regression', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // verify cart page displayed
+    await cartPage.verifyCartPage();
+
+    // Click checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page displayed
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // verify checkout overview page displayed
+    await checkoutPage.verifyCheckoutOverviewPage();
+
+    // Get tax amount
+    const tax = await checkoutPage.getTax();
+
+    // Verify tax
+    expect(tax).toBe(`Tax: ${Constants.TAX}`);
 });
 
 });
