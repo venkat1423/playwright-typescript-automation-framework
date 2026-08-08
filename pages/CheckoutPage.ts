@@ -131,6 +131,13 @@ export class CheckoutPage extends BasePage{
             return total ?? '';
         }
 
+        // Verify Checkout complete page
+        async verifyCheckoutCompletePage(){
+            await expect(this.completeHeader).toHaveText(Constants.SUCCESS_HEADER);
+
+            await expect(this.completeMessage).toContainText(Constants.SUCCESS_MESSAGE);
+        }
+
         async clickContinue() {
             await this.continueButton.click();
         }

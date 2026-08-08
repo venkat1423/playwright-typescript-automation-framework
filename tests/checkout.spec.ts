@@ -548,6 +548,45 @@ test('Verify Total amount calculation on checkout overview @regression', async({
     // Verify calculated total matches displayed total
     expect(totalAmount).toBe(expectedTotal);
     
-})
+});
+
+test('Verify user can complete the order @smoke @regression', async({inventoryPage, cartPage, checkoutPage})=>{
+    // Verify inventory page displayed
+    await inventoryPage.verifyInventoryPage();
+
+    // Add product to cart
+    await inventoryPage.addProductToCart(Constants.BACKPACK);
+
+    // Open cart
+    await inventoryPage.openCart();
+
+    // Verify cart page
+    await cartPage.verifyCartPage();
+
+    // Click Checkout
+    await cartPage.clickCheckout();
+
+    // Verify checkout information page
+    await checkoutPage.verifyCheckoutInformationPage();
+
+    // Enter checkout information
+    await checkoutPage.enterCheckoutInformation(
+        checkoutData.validCheckout.firstName,
+        checkoutData.validCheckout.lastName,
+        checkoutData.validCheckout.postalCode
+    );
+
+    // Click continue
+    await checkoutPage.clickContinue();
+
+    // Verify checkout overview page
+    await checkoutPage.verifyCheckoutOverviewPage();
+
+    // Click Finish
+    await checkoutPage.clickFinish();
+
+    // Verify checkout complete page
+    await checkoutPage.verifyCheckoutCompletePage();
+});
 
 });
