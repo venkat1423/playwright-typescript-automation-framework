@@ -4,12 +4,14 @@ import {LoginPage} from '../pages/LoginPage';
 import {InventoryPage} from '../pages/InventoryPage';
 import {CartPage} from '../pages/CartPage';
 import {CheckoutPage} from '../pages/CheckoutPage';
+import {CheckoutFlow} from '../flows/CheckoutFlow';
 
 type PageFixtures = {
     loginPage: LoginPage;
     inventoryPage: InventoryPage;
     cartPage: CartPage;
     checkoutPage: CheckoutPage;
+    checkoutFlow: CheckoutFlow;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -31,6 +33,11 @@ export const test = base.extend<PageFixtures>({
 
     checkoutPage: async ({page}, use) => {
         await use(new CheckoutPage(page));
+    },
+
+    checkoutFlow: async({inventoryPage, cartPage, checkoutPage}, use)=>{
+        const checkoutFlow = new CheckoutFlow(inventoryPage, cartPage, checkoutPage);
+        await use(checkoutFlow);
     }
 })
 
